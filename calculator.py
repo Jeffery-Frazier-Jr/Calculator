@@ -1,5 +1,5 @@
 import customtkinter as ctk
-from buttons import Button
+from buttons import Button, NumButton
 from settings import *
 
 class Calculator(ctk.CTk):
@@ -61,6 +61,20 @@ class Calculator(ctk.CTk):
             row = OPERATORS['percent']['row'],
             font = main_font)
         
+        # number buttons
+        for num, data, in NUM_POSITIONS.items():
+            NumButton(
+                parent = self, 
+                text = num, 
+                func = self.num_press, 
+                col = data['col'], 
+                row = data['row'], 
+                font = main_font,
+                span = data['span'])
+        
+    def num_press(self, value):
+        print(value)
+
     def clear(self):
         print('clear')
 
