@@ -46,3 +46,5 @@ COLORS = {
 
 BLACK = '#000000'
 WHITE = '#EEEEEE'
+
+DARK_MODE = True
