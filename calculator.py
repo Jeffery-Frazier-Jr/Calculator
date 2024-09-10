@@ -43,8 +43,32 @@ class Calculator(ctk.CTk):
             row = OPERATORS['clear']['row'],
             font = main_font)
         
+        # invert button
+        Button(
+            parent = self,
+            func = self.invert,
+            text = OPERATORS['invert']['text'], 
+            col = OPERATORS['invert']['col'], 
+            row = OPERATORS['invert']['row'],
+            font = main_font)
+        
+        # percentage button
+        Button(
+            parent = self,
+            func = self.percent,
+            text = OPERATORS['percent']['text'],
+            col = OPERATORS['percent']['col'],
+            row = OPERATORS['percent']['row'],
+            font = main_font)
+        
     def clear(self):
         print('clear')
+
+    def percent(self):
+        print('percent')
+    
+    def invert(self):
+        print('+invert-')
 
 class OutputLabel(ctk.CTkLabel):
     def __init__(self, parent, row, anchor, font, string_var):
