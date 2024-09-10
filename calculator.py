@@ -1,4 +1,5 @@
 import customtkinter as ctk
+from buttons import Button
 from settings import *
 
 class Calculator(ctk.CTk):
@@ -32,6 +33,18 @@ class Calculator(ctk.CTk):
         # output labels
         OutputLabel(self, 0, 'se', main_font, self.formula_string) # formula
         OutputLabel(self, 1, 'e', result_font, self.result_string) # result
+
+        # clear (AC) button
+        Button(
+            parent = self,
+            func = self.clear, 
+            text = OPERATORS['clear']['text'], 
+            col = OPERATORS['clear']['col'], 
+            row = OPERATORS['clear']['row'],
+            font = main_font)
+        
+    def clear(self):
+        print('clear')
 
 class OutputLabel(ctk.CTkLabel):
     def __init__(self, parent, row, anchor, font, string_var):
