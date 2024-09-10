@@ -1,5 +1,5 @@
 import customtkinter as ctk
-from buttons import Button, NumButton
+from buttons import Button, NumButton, MathButton
 from settings import *
 
 class Calculator(ctk.CTk):
@@ -19,6 +19,8 @@ class Calculator(ctk.CTk):
         # data
         self.formula_string = ctk.StringVar(value = '')
         self.result_string = ctk.StringVar(value = '0')
+        self.display_nums = []
+        self.full_operation = []
 
         # widgets
         self.create_widgets()
@@ -71,9 +73,54 @@ class Calculator(ctk.CTk):
                 row = data['row'], 
                 font = main_font,
                 span = data['span'])
+            
+        # math buttons
+        for operator, data in MATH_POSITIONS.items():
+            MathButton(
+                parent = self, 
+                text = data['character'], 
+                operator = operator, 
+                func = self.math_press, 
+                col = data['col'], 
+                row = data['row'], 
+                font = main_font)
+            
+    def math_press(self, value):
+        current_number = ''.join(self.display_nums)
+
+        if current_number:
+            self.full_operation.append(current_number)
+            
+            if value != '=':
+                # update data
+                self.full_operation.append(value)
+                self.display_nums.clear()
+
+                # update output
+                self.result_string.set('')
+                self.formula_string.set(' '.join(self.full_operation))
+            else:
+                # final formula update and result formatting
+                self.formula_string.set(' '.join(self.full_operation))
+                formula = ''.join(self.full_operation)
+                result = eval(formula)
+                if isinstance(result, float):
+                    if result.is_integer():
+                        result = int(result)
+                    else:
+                        result = round(result, 3)
+
+                # output updates and list clearing
+                self.result_string.set(result)
+                self.display_nums = [str(result)]
+                self.full_operation.clear()
+
+                
         
     def num_press(self, value):
-        print(value)
+        self.display_nums.append(str(value))
+        full_number = ''.join(self.display_nums)
+        self.result_string.set(full_number)
 
     def clear(self):
         print('clear')

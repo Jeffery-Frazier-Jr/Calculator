@@ -19,9 +19,20 @@ class NumButton(Button):
         super().__init__( 
             parent = parent, 
             text = text, 
-            func = lambda: print(text), 
+            func = lambda: func(text), 
             col = col, 
             row = row, 
             font = font, 
             color = color,
             span = span)
+        
+class MathButton(Button):
+    def __init__(self, parent, text, operator, func, col, row, font, color = 'orange'):
+        super().__init__( 
+            parent = parent, 
+            text = text, 
+            func = lambda: func(operator), 
+            col = col, 
+            row = row, 
+            font = font, 
+            color = color,)
